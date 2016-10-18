@@ -1,0 +1,27 @@
+{
+    "name": "beequeue/dependview",
+    "description": "Compare dependencies of projects",
+    "type": "project",
+    "require-dev": {
+        "phpunit/phpunit": "^5.5",
+        "mikey179/vfsStream": "^1.6"
+    },
+    "authors": [
+        {
+            "name": "Brendan Quigley",
+            "email": "brendan@beequeue.co.uk"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "silex/silex": "^2.0",
+        "twig/twig": "^1.25",
+        "symfony/yaml": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {"Beequeue\\DependView\\": "src/"}
+    },
+    "autoload-dev" : {
+        "psr-4": { "Beequeue\\DependView\\Test\\": "test/" }
+    }
+}

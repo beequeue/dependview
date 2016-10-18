@@ -1,0 +1,12 @@
+{
+    "require-dev": {
+        "phpunit/phpunit": "^5.5",
+        "mikey179/vfsStream": "^1.6"
+    },
+    "require": {
+        "php": ">=7.0",
+        "silex/silex": "^2.0",
+        "twig/twig": "^1.25",
+        "symfony/yaml": "^3.1"
+    }
+}

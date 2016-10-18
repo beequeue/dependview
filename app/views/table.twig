@@ -1,0 +1,12 @@
+
+<table class="pure-table pure-table-bordered">
+{% for row in table.rows %}
+  <tr>
+  {% for cell in row.cells %}
+    <{% if cell.isHeader %}th{% else %}td{% endif %}{% if cell.colSpan %} colspan="{{ cell.colSpan }}"{% endif %}>
+      {{ cell.text }}
+    </{% if cell.isHeader %}th{% else %}td{% endif %}>
+  {% endfor %}
+  </tr>
+{% endfor %}
+</table>

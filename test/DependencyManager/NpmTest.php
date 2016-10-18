@@ -20,7 +20,8 @@ class NpmTest extends DependencyManagerTestBase
         $expected = [
             "dependencies" => [
                 "express" => "^4.9.7",
-                "socket.io" => "^1.2.0"
+                "socket.io" => "^1.2.0",
+                "uranus" => "v1.1.0"
             ],
             "devDependencies" => [
                 "gulp" => "^3.8.10",

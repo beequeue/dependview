@@ -2,11 +2,18 @@
 
 namespace Beequeue\DependView\DependencyManager;
 
+use Beequeue\DependView\DependencyManager\VersionExtractor\GitlabArchiveUrlExtractor;
+
 class Npm extends AbstractManager
 {
     public function getId(): string
     {
         return 'npm';
+    }
+
+    public function setupVersionExtractors()
+    {
+        $this->addVersionExtractor(new GitlabArchiveUrlExtractor());
     }
 
     public function getProjectDependencies(): array
@@ -19,11 +26,15 @@ class Npm extends AbstractManager
         ];
 
         if (!empty($packageData['dependencies'])) {
-            $dependencies['dependencies'] = $packageData['dependencies'];
+            $dependencies['dependencies'] = $this->mapDependenciesToVersions(
+                $packageData['dependencies']
+            );
         }
 
         if (!empty($packageData['devDependencies'])) {
-            $dependencies['devDependencies'] = $packageData['devDependencies'];
+            $dependencies['devDependencies'] = $this->mapDependenciesToVersions(
+                $packageData['devDependencies']
+            );
         }
 
         return $dependencies;

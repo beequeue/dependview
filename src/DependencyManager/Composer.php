@@ -19,11 +19,15 @@ class Composer extends AbstractManager
         ];
 
         if (!empty($composerData['require'])) {
-            $dependencies['require'] = $composerData['require'];
+            $dependencies['require'] = $this->mapDependenciesToVersions(
+                $composerData['require']
+            );
         }
 
         if (!empty($composerData['require-dev'])) {
-            $dependencies['require-dev'] = $composerData['require-dev'];
+            $dependencies['require-dev'] = $this->mapDependenciesToVersions(
+                $composerData['require-dev']
+            );
         }
 
         return $dependencies;

@@ -4,6 +4,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 use Beequeue\DependView\DependencyAnalyser;
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\HttpFoundation\Request;
 
 define('ROOT_DIR', __DIR__ . '/..');
 define('PROJECTS_CONFIG_FILE', ROOT_DIR . '/app/config/projects.yml');
@@ -35,5 +36,35 @@ $app->get('/', function () use ($app) {
         'table' => $table->asArray(),
     ));
 });
+
+/**
+ * Can act as a web hook to trigger a cache update for a given project,
+ * e.g. /update?project=project-a
+ */
+$app->get('/update', function(Request $request) use ($app) {
+
+    $projectId = $request->get('projectid');
+
+    if (!$projectId) {
+        return "'projectid' must be a valid project ID in query string";
+    }
+
+    $dependencyAnalyser = new DependencyAnalyser([
+        'projects' => Yaml::parse(file_get_contents(PROJECTS_CONFIG_FILE)),
+        'cacheDir' => ROOT_DIR . '/cache'
+    ]);
+
+    $project = $dependencyAnalyser->getProjectById($projectId);
+
+    if (!$project) {
+        return "Requested project ID not found";
+    }
+
+    $project->
+
+    return "OK";
+});
+
+$app['debug'] = 1;
 
 $app->run();

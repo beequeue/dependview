@@ -11,6 +11,13 @@ class Npm extends AbstractManager
         return 'npm';
     }
 
+    public function getRequiredFilePaths(): array
+    {
+        return [
+            'package.json'
+        ];
+    }
+
     public function setupVersionExtractors()
     {
         $this->addVersionExtractor(new GitlabArchiveUrlExtractor());

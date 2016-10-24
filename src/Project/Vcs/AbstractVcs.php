@@ -2,17 +2,21 @@
 
 namespace Beequeue\DependView\Project\Vcs;
 
+use GuzzleHttp\Client as HttpClient;
+
 abstract class AbstractVcs implements VcsInterface
 {
     protected $options;
+
+    protected $httpClient;
 
     public function __construct(array $options = [])
     {
         $this->options = $options;
     }
 
-    public function updateCache()
+    public function setHttpClient(HttpClient $client)
     {
-        throw new \Exception('Descendents of AbstractVcs must implement updateCache');
+        $this->httpClient = $client;
     }
 }

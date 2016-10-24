@@ -9,6 +9,13 @@ class Composer extends AbstractManager
         return 'composer';
     }
 
+    public function getRequiredFilePaths(): array
+    {
+        return [
+            'composer.json'
+        ];
+    }
+
     public function getProjectDependencies(): array
     {
         $composerData = $this->parseComposerJsonFile();

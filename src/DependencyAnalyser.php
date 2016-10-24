@@ -36,6 +36,11 @@ class DependencyAnalyser
         return $this->projects;
     }
 
+    public function getProjectById($projectId)
+    {
+        return $this->projects[$projectId] ?? false;
+    }
+
     public function analyse()
     {
         $byManagerAndDepdendency = $this->analyseByManagerAndDependency();
@@ -43,10 +48,9 @@ class DependencyAnalyser
         $table = new DependencyTable();
 
         $headerRow = new Row();
-        $headerRow->addCell(new Cell(['isHeader' => true]));
+        $headerRow->addCell(new Cell());
         foreach ($this->projects as $project) {
             $headerRow->addCell(new Cell([
-                'isHeader' => true,
                 'text' => $project->getLabel()
             ]));
         }
@@ -58,7 +62,6 @@ class DependencyAnalyser
             $row = new Row();
             $row->addCell(new Cell([
                 'text' => $managerId,
-                'isHeader' => true,
                 'colSpan' => $projectCount + 1
             ]));
             $table->addRow($row);

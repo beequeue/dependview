@@ -20,17 +20,17 @@ abstract class AbstractManager implements ManagerInterface
         $this->setupVersionExtractors();
     }
 
-    public function setupVersionExtractors()
+    protected function setupVersionExtractors()
     {
         // Override with manager-specific version string handling
     }
 
-    public function addVersionExtractor(ExtractorInterface $extractor)
+    protected function addVersionExtractor(ExtractorInterface $extractor)
     {
         $this->versionExtractors[] = $extractor;
     }
 
-    public function mapDependenciesToVersions(array $dependencies) : array
+    protected function mapDependenciesToVersions(array $dependencies) : array
     {
         $mappedVersions = [];
 
@@ -41,7 +41,7 @@ abstract class AbstractManager implements ManagerInterface
         return $mappedVersions;
     }
 
-    public function extractVersion(string $versionStr) : string
+    protected function extractVersion(string $versionStr) : string
     {
         foreach ($this->versionExtractors as $extractor) {
             $version = $extractor->extract($versionStr);

@@ -7,4 +7,6 @@ interface ManagerInterface
     public function getId(): string;
 
     public function getProjectDependencies(): array;
+
+    public function getRequiredFilePaths(): array;
 }

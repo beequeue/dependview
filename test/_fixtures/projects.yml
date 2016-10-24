@@ -1,8 +1,8 @@
 - id: project-a
   label: Project A
   vcs:
-    type: gitlab
-    url: https://my.gitlab.repo.com/company/projecta
+    type: github
+    url: https://github.com/company/projecta
     branch: master
   dependency-managers:
     composer: {}

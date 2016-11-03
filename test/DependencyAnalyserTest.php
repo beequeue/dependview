@@ -15,11 +15,12 @@ class DependencyAnalyserTest extends \PHPUnit_Framework_TestCase
 
         $projects = $dependencyAnalyser->getProjects();
 
-        $this->assertCount(2, $projects);
+        $this->assertCount(3, $projects);
 
         $projectInterface = 'Beequeue\DependView\Project\ProjectInterface';
         $this->assertInstanceOf($projectInterface, $projects['project-a']);
         $this->assertInstanceOf($projectInterface, $projects['project-b']);
+        $this->assertInstanceOf($projectInterface, $projects['project-c']);
     }
 
     public function testAnalyse()

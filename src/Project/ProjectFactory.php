@@ -19,10 +19,12 @@ class ProjectFactory
         $projectCacheDir = $this->generateProjectCacheDir($projectConfig);
 
         $dependencyManagers = [];
-        foreach ($projectConfig['dependency-managers'] as $type => $managerConfig) {
-            $dependencyManagers[$type] = $this->createDependencyManager(
-                $type, $managerConfig, $projectCacheDir
-            );
+        if (!empty($projectConfig['dependency-managers'])) {
+            foreach ($projectConfig['dependency-managers'] as $type => $managerConfig) {
+                $dependencyManagers[$type] = $this->createDependencyManager(
+                    $type, $managerConfig, $projectCacheDir
+                );
+            }
         }
 
         return new Project([
@@ -46,10 +48,7 @@ class ProjectFactory
             throw new \Exception('VCS type not set');
         }
 
-        $vcsClassName = sprintf(
-            'Beequeue\DependView\Project\Vcs\%s',
-            ucfirst($vcsConfig['type'])
-        );
+        $vcsClassName = $this->getVcsClassNameFromType($vcsConfig['type']);
 
         if (!class_exists($vcsClassName)) {
             throw new \Exception(sprintf('VCS class "%s" not found', $vcsClassName));
@@ -58,6 +57,19 @@ class ProjectFactory
         $vcsObject = new $vcsClassName($vcsConfig);
 
         return $vcsObject;
+    }
+
+    private function getVcsClassNameFromType(string $vcsType): string
+    {
+        $typeParts = explode('-', $vcsType);
+        $className = implode('', array_map('ucfirst', $typeParts));
+
+        $fullyQualifiedClassName = sprintf(
+            'Beequeue\DependView\Project\Vcs\%s',
+            $className
+        );
+
+        return $fullyQualifiedClassName;
     }
 
     private function createDependencyManager(

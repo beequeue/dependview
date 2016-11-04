@@ -51,6 +51,10 @@ class Npm extends AbstractManager
     {
         $pathToFile = $this->projectCacheDir . '/package.json';
 
+        if (!file_exists($pathToFile)) {
+            return [];
+        }
+
         $packageData = json_decode(file_get_contents($pathToFile), true);
 
         return $packageData;

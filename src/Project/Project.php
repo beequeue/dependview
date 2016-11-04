@@ -49,8 +49,8 @@ class Project implements ProjectInterface
     {
         $filePaths = [];
 
-        foreach ($this->getDependencyManagers as $manager) {
-            $filePaths += $manager->getRequiredFilePaths();
+        foreach ($this->getDependencyManagers() as $manager) {
+            $filePaths = array_merge($filePaths, $manager->getRequiredFilePaths());
         }
 
         return $filePaths;
@@ -68,6 +68,8 @@ class Project implements ProjectInterface
 
     protected function writeFilesToCache(array $fileData)
     {
+        $this->ensureCacheDirectoryExists();
+
         foreach ($fileData as $path => $data) {
             $this->writeFileToCache($path, $data);
         }
@@ -77,5 +79,12 @@ class Project implements ProjectInterface
     {
         $fileName = sprintf('%s/%s', $this->cacheDir, $path);
         file_put_contents($fileName, $data);
+    }
+
+    protected function ensureCacheDirectoryExists()
+    {
+        if (!is_dir($this->cacheDir)) {
+            mkdir($this->cacheDir, 0755, true);
+        }
     }
 }

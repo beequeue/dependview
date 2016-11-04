@@ -5,6 +5,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 use Beequeue\DependView\DependencyAnalyser;
 use Symfony\Component\Yaml\Yaml;
 use Symfony\Component\HttpFoundation\Request;
+use GuzzleHttp\Client as HttpClient;
 
 define('ROOT_DIR', __DIR__ . '/..');
 define('PROJECTS_CONFIG_FILE', ROOT_DIR . '/app/config/projects.yml');
@@ -60,7 +61,8 @@ $app->get('/update', function(Request $request) use ($app) {
         return "Requested project ID not found";
     }
 
-    $project->
+    $httpClient = new HttpClient;
+    $project->updateCache($httpClient);
 
     return "OK";
 });

@@ -44,6 +44,10 @@ class Composer extends AbstractManager
     {
         $pathToFile = $this->projectCacheDir . '/composer.json';
 
+        if (!file_exists($pathToFile)) {
+            return [];
+        }
+
         $composerData = json_decode(file_get_contents($pathToFile), true);
 
         return $composerData;

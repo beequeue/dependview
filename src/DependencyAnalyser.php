@@ -48,10 +48,11 @@ class DependencyAnalyser
         $table = new DependencyTable();
 
         $headerRow = new Row();
-        $headerRow->addCell(new Cell());
+        $headerRow->addCell(new Cell(['isHeader' => true]));
         foreach ($this->projects as $project) {
             $headerRow->addCell(new Cell([
-                'text' => $project->getLabel()
+                'text' => $project->getLabel(),
+                'isHeader' => true
             ]));
         }
         $table->addRow($headerRow);
@@ -62,7 +63,8 @@ class DependencyAnalyser
             $row = new Row();
             $row->addCell(new Cell([
                 'text' => $managerId,
-                'colSpan' => $projectCount + 1
+                'colSpan' => $projectCount + 1,
+                'cssClass' => 'dependency-manager'
             ]));
             $table->addRow($row);
 
@@ -71,7 +73,8 @@ class DependencyAnalyser
                 $row = new Row();
                 $row->addCell(new Cell([
                     'text' => $type,
-                    'colSpan' => $projectCount + 1
+                    'colSpan' => $projectCount + 1,
+                    'cssClass' => 'dependency-group'
                 ]));
                 $table->addRow($row);
 

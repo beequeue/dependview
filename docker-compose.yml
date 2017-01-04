@@ -1,0 +1,7 @@
+web:
+  build: .
+  container_name: dependview
+  ports:
+    - '8088:80'
+  volumes:
+    - '.:/var/www'
